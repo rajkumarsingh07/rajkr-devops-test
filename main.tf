@@ -1,12 +1,12 @@
 # Declare input variables
 variable "NAME" {
-  description = "Full name"
+  description = "Full Name"
   type        = string
   default     = "Rajkumar Singh"
 }
 
 variable "EMAIL" {
-  description = "Email address"
+  description = "Email Address"
   type        = string
   default     = "rajkumarsingh07@gmail.com"
 }
