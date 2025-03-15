@@ -14,14 +14,14 @@ variable "EMAIL" {
 variable "AWS_REGION" {
   description = "AWS Region"
   type        = string
-  default     = "ap-south-1"  # Set this to your preferred AWS region
+  default     = "ap-south-1" # Set this to your preferred AWS region
 }
 
 # Create a private subnet
 resource "aws_subnet" "private_subnet" {
   vpc_id            = data.aws_vpc.vpc.id
   cidr_block        = "10.0.47.0/24" # Hardcoded CIDR block
-  availability_zone = "ap-south-1a" # Change this if needed
+  availability_zone = "ap-south-1a"  # Change this if needed
 
   tags = {
     Name = "private-subnet"
