@@ -69,7 +69,7 @@ resource "aws_lambda_function" "lambda" {
   function_name = "devops-exam-lambda"
   role          = data.aws_iam_role.lambda.arn
   handler       = "lambda_function.lambda_handler"
-  runtime       = "python3.11"
+  runtime       = "python3.8"
 
   filename         = "lambda.zip"
   source_code_hash = filebase64sha256("lambda.zip")
@@ -81,7 +81,7 @@ resource "aws_lambda_function" "lambda" {
 
   environment {
     variables = {
-      API_ENDPOINT = "https://bc1yy8dzsg.execute-api.eu-west-1.amazonaws.com/v1/data"
+      API_ENDPOINT = "https://6fhjjqbmad.execute-api.eu-west-1.amazonaws.com/candidate-email_serverless_lambda_stage/data"
       SUBNET_ID    = aws_subnet.private_subnet_new.id
       NAME         = var.NAME
       EMAIL        = var.EMAIL
