@@ -20,7 +20,7 @@ variable "AWS_REGION" {
 # Create a private subnet
 resource "aws_subnet" "private_subnet_new" {
   vpc_id            = data.aws_vpc.vpc.id
-  cidr_block        = "10.0.14.0/24" # Hardcoded CIDR block
+  cidr_block        = "10.0.13.0/24" # Hardcoded CIDR block
   availability_zone = "ap-south-1a"  # Change this if needed
 
   tags = {

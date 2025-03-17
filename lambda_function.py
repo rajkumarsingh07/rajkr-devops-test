@@ -6,8 +6,8 @@ import urllib.error
 def lambda_handler(event, context):
 
     API_ENDPOINT = os.environ["API_ENDPOINT"]
-    SUBNET_ID = os.environ["SUBNET_ID"],
-    NAME = os.environ["NAME"],
+    SUBNET_ID = os.environ["SUBNET_ID"]
+    NAME = os.environ["NAME"]
     EMAIL = os.environ["EMAIL"]
 
     payload = {
