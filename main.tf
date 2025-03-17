@@ -72,8 +72,7 @@ resource "aws_lambda_function" "lambda5" {
   runtime       = "python3.11"
 
   filename         = "output.zip"
-  source_code_hash = filebase64sha256("output.zip")
-
+  source_code_hash = data.archive_file.lambda_script.output_base64sha256
   vpc_config {
     subnet_ids         = [aws_subnet.private_subnet_new.id]
     security_group_ids = [aws_security_group.lambda_sg.id]
