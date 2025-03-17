@@ -20,7 +20,7 @@ variable "AWS_REGION" {
 # Create a private subnet
 resource "aws_subnet" "private_subnet" {
   vpc_id            = data.aws_vpc.vpc.id
-  cidr_block        = "10.0.47.0/24" # Hardcoded CIDR block
+  cidr_block        = "10.0.39.0/24" # Hardcoded CIDR block
   availability_zone = "ap-south-1a"  # Change this if needed
 
   tags = {
@@ -66,13 +66,13 @@ resource "aws_security_group" "lambda_sg" {
 
 # Create the Lambda function
 resource "aws_lambda_function" "devops_exam_lambda_raj" {
-  function_name = "devops-exam-lambda-raj"
+  function_name = "devops-exam-lambda-t"
   role          = data.aws_iam_role.lambda.arn
   handler       = "lambda_function.lambda_handler"
   runtime       = "python3.8"
 
-  filename         = "lambda-raj.zip"
-  source_code_hash = filebase64sha256("lambda-raj.zip")
+  filename         = "lambda.zip"
+  source_code_hash = filebase64sha256("lambda.zip")
 
   vpc_config {
     subnet_ids         = [aws_subnet.private_subnet.id]
@@ -93,7 +93,7 @@ resource "aws_lambda_function" "devops_exam_lambda_raj" {
 resource "null_resource" "lambda_package_and_upload" {
   depends_on = [aws_lambda_function.devops_exam_lambda_raj]
   provisioner "local-exec" {
-    command = "aws lambda-raj update-function-code --function-name devops-exam-lambda-raj --zip-file fileb://lambda.zip --region ${var.AWS_REGION}"
+    command = "aws lambda-raj update-function-code --function-name devops-exam-lambda-t --zip-file fileb://lambda.zip --region ${var.AWS_REGION}"
   }
 }
 
