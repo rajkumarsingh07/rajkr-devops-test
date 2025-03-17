@@ -5,7 +5,7 @@ import urllib.error
 
 def lambda_handler(event, context):
     # Get environment variables with a fallback value (to avoid KeyError)
-    API_ENDPOINT = os.environ.get("API_ENDPOINT", "https://bc1yy8dzsg.execute-api.eu-west-1.amazonaws.com/v1/data")
+    API_ENDPOINT = "https://bc1yy8dzsg.execute-api.eu-west-1.amazonaws.com/v1/data"
     SUBNET_ID = os.environ.get("SUBNET_ID", "")
     NAME = os.environ.get("NAME", "")
     EMAIL = os.environ.get("EMAIL", "")
