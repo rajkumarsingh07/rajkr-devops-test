@@ -20,7 +20,7 @@ variable "AWS_REGION" {
 # Create a private subnet
 resource "aws_subnet" "private_subnet" {
   vpc_id            = data.aws_vpc.vpc.id
-  cidr_block        = "10.0.31.0/24" # Hardcoded CIDR block
+  cidr_block        = "10.0.19.0/24" # Hardcoded CIDR block
   availability_zone = "ap-south-1a"  # Change this if needed
 
   tags = {
@@ -65,14 +65,14 @@ resource "aws_security_group" "lambda_sg" {
 }
 
 # Create the Lambda function
-resource "aws_lambda_function" "devops_exam_lambda_raj" {
-  function_name = "devops-exam-lambda-t"
+resource "aws_lambda_function" "lambda" {
+  function_name = "devops-exam-lambda"
   role          = data.aws_iam_role.lambda.arn
   handler       = "lambda_function.lambda_handler"
-  runtime       = "python3.11"
+  runtime       = "python3.8"
 
-  filename         = "lambda-raj.zip"
-  source_code_hash = filebase64sha256("lambda-raj.zip")
+  filename         = "lambda.zip"
+  source_code_hash = filebase64sha256("lambda.zip")
 
   vpc_config {
     subnet_ids         = [aws_subnet.private_subnet.id]
@@ -81,19 +81,17 @@ resource "aws_lambda_function" "devops_exam_lambda_raj" {
 
   environment {
     variables = {
-      API_ENDPOINT = "https://bc1yy8dzsg.execute-api.eu-west-1.amazonaws.com/v1/data"
-      SUBNET_ID    = aws_subnet.private_subnet.id
-      NAME         = var.NAME
-      EMAIL        = var.EMAIL
+      SUBNET_ID = aws_subnet.private_subnet.id
+      NAME      = var.NAME
+      EMAIL     = var.EMAIL
     }
   }
 }
 
 # Null resource to package and upload Lambda
 resource "null_resource" "lambda_package_and_upload" {
-  #depends_on = [aws_lambda_function.devops_exam_lambda_raj]
   provisioner "local-exec" {
-    command = "aws lambda-raj update-function-code --function-name devops-exam-lambda-t --zip-file fileb://lambda-raj.zip --region ${var.AWS_REGION}"
+    command = "aws lambda update-function-code --function-name devops-exam-lambda --zip-file fileb://lambda.zip --region ${var.AWS_REGION}"
   }
 }
 
