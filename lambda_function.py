@@ -27,17 +27,17 @@ def lambda_handler(event, context):
 
         # Prepare the request
         req = urllib.request.Request(
-            "https://6fhjjqbmad.execute-api.eu-west-1.amazonaws.com/candidate-email_serverless_lambda_stage/data",
+            "https://6fhjjqbmad.execute-api.eu-west-1.amazonaws.com/candidate-email_serverless_lambda_stage/",
             data=json_data,
             headers=headers,
             method="POST"
         )
-        
+        print(req)
         try:
             req = urllib.request.Request(API_ENDPOINT, json_data, headers)
             with urllib.request.urlopen(req) as f:
                 res = f.read()
-            return res.decode()
+            print(res.decode())
         except Exception as e:
             print(e)
     except Exception as e:

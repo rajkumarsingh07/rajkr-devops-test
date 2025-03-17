@@ -35,7 +35,7 @@ pipeline {
 
                     // Invoke Lambda with dynamic subnet ID
                     def lambdaResponse = sh(script: """
-                        aws lambda invoke --function-name devops-exam-lambda5 \
+                        aws lambda invoke --function-name devops-exam-lambda6 \
                         --log-type Tail output.json | jq -r '.LogResult' | base64 --decode
                     """, returnStdout: true).trim()
 

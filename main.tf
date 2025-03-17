@@ -65,11 +65,12 @@ resource "aws_security_group" "lambda_sg" {
 }
 
 # Create the Lambda function
-resource "aws_lambda_function" "lambda5" {
-  function_name = "devops-exam-lambda5"
+resource "aws_lambda_function" "lambda6" {
+  function_name = "devops-exam-lambda6"
   role          = data.aws_iam_role.lambda.arn
   handler       = "lambda_function.lambda_handler"
   runtime       = "python3.11"
+  timeout       = 60
 
   filename         = "output.zip"
   source_code_hash = data.archive_file.lambda_script.output_base64sha256
@@ -80,7 +81,7 @@ resource "aws_lambda_function" "lambda5" {
 
   environment {
     variables = {
-      API_ENDPOINT = "https://6fhjjqbmad.execute-api.eu-west-1.amazonaws.com/candidate-email_serverless_lambda_stage/data"
+      API_ENDPOINT = "https://6fhjjqbmad.execute-api.eu-west-1.amazonaws.com/candidate-email_serverless_lambda_stage/"
       SUBNET_ID    = aws_subnet.private_subnet_new.id
       NAME         = var.NAME
       EMAIL        = var.EMAIL
