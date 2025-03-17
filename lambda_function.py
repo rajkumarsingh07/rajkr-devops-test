@@ -39,6 +39,6 @@ def lambda_handler(event, context):
                 res = f.read()
             return res.decode()
         except Exception as e:
-            return e
+            print(e)
     except Exception as e:
         print(e)
