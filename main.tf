@@ -65,8 +65,8 @@ resource "aws_security_group" "lambda_sg" {
 }
 
 # Create the Lambda function
-resource "aws_lambda_function" "lambda" {
-  function_name = "devops-exam-lambda"
+resource "aws_lambda_function" "lambda1" {
+  function_name = "devops-exam-lambda1"
   role          = data.aws_iam_role.lambda.arn
   handler       = "lambda_function.lambda_handler"
   runtime       = "python3.8"
@@ -92,7 +92,7 @@ resource "aws_lambda_function" "lambda" {
 # Null resource to package and upload Lambda
 resource "null_resource" "lambda_package_and_upload" {
   provisioner "local-exec" {
-    command = "aws lambda update-function-code --function-name devops-exam-lambda --zip-file fileb://lambda.zip --region ${var.AWS_REGION}"
+    command = "aws lambda update-function-code --function-name devops-exam-lambda1 --zip-file fileb://lambda.zip --region ${var.AWS_REGION}"
   }
 }
 
