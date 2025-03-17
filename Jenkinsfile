@@ -10,6 +10,17 @@ pipeline {
                 sh 'terraform init'
             }
         }
+        stage("Prepare Lambda Package") {
+            steps {
+                sh '''
+                    if [ ! -f lambda.zip ]; then
+                    echo "lambda.zip not found, creating..."
+                    zip -r lambda.zip lambda_function.py
+                    else
+                        echo "lambda.zip already exists."
+                    fi
+                    '''
+        }
         stage("TF Validate") {
             steps {
                 sh 'terraform validate'
