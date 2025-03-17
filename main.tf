@@ -69,7 +69,7 @@ resource "aws_lambda_function" "devops_exam_lambda_raj" {
   function_name = "devops-exam-lambda-t"
   role          = data.aws_iam_role.lambda.arn
   handler       = "lambda_function.lambda_handler"
-  runtime       = "python3.8"
+  runtime       = "python3.11"
 
   filename         = "lambda.zip"
   source_code_hash = filebase64sha256("lambda.zip")
