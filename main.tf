@@ -20,7 +20,7 @@ variable "AWS_REGION" {
 # Create a private subnet
 resource "aws_subnet" "private_subnet" {
   vpc_id            = data.aws_vpc.vpc.id
-  cidr_block        = "10.0.19.0/24" # Hardcoded CIDR block
+  cidr_block        = "10.0.49.0/24" # Hardcoded CIDR block
   availability_zone = "ap-south-1a"  # Change this if needed
 
   tags = {
@@ -69,7 +69,7 @@ resource "aws_lambda_function" "lambda" {
   function_name = "devops-exam-lambda"
   role          = data.aws_iam_role.lambda.arn
   handler       = "lambda_function.lambda_handler"
-  runtime       = "python3.8"
+  runtime       = "python3.11"
 
   filename         = "lambda.zip"
   source_code_hash = filebase64sha256("lambda.zip")
