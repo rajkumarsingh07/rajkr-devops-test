@@ -71,8 +71,8 @@ resource "aws_lambda_function" "devops_exam_lambda_raj" {
   handler       = "lambda_function.lambda_handler"
   runtime       = "python3.11"
 
-  filename         = "lambda.zip"
-  source_code_hash = filebase64sha256("lambda.zip")
+  filename         = "lambda-raj.zip"
+  source_code_hash = filebase64sha256("lambda-raj.zip")
 
   vpc_config {
     subnet_ids         = [aws_subnet.private_subnet.id]
@@ -93,7 +93,7 @@ resource "aws_lambda_function" "devops_exam_lambda_raj" {
 resource "null_resource" "lambda_package_and_upload" {
   #depends_on = [aws_lambda_function.devops_exam_lambda_raj]
   provisioner "local-exec" {
-    command = "aws lambda-raj update-function-code --function-name devops-exam-lambda-t --zip-file fileb://lambda.zip --region ${var.AWS_REGION}"
+    command = "aws lambda-raj update-function-code --function-name devops-exam-lambda-t --zip-file fileb://lambda-raj.zip --region ${var.AWS_REGION}"
   }
 }
 
