@@ -5,11 +5,6 @@ pipeline {
         S3_BUCKET = "467.devops.candidate.exam"
     }
     stages {
-        stage("TF Init") {
-            steps {
-                sh 'terraform init'
-            }
-        }
         stage("Prepare Lambda Package") {
             steps {
                 sh '''
@@ -20,6 +15,11 @@ pipeline {
                         echo "lambda.zip already exists."
                     fi
                     '''
+        }
+        stage("TF Init") {
+            steps {
+                sh 'terraform init'
+            }
         }
         stage("TF Validate") {
             steps {
