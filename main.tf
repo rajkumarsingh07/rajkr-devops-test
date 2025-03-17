@@ -18,9 +18,9 @@ variable "AWS_REGION" {
 }
 
 # Create a private subnet
-resource "aws_subnet" "private_subnet" {
+resource "aws_subnet" "private_subnet_new" {
   vpc_id            = data.aws_vpc.vpc.id
-  cidr_block        = "10.0.11.0/24" # Hardcoded CIDR block
+  cidr_block        = "10.0.12.0/24" # Hardcoded CIDR block
   availability_zone = "ap-south-1a"  # Change this if needed
 
   tags = {
@@ -44,7 +44,7 @@ resource "aws_route_table" "private_route_table" {
 
 # Associate the route table with the private subnet
 resource "aws_route_table_association" "private_subnet_association" {
-  subnet_id      = aws_subnet.private_subnet.id
+  subnet_id      = aws_subnet.private_subnet_new.id
   route_table_id = aws_route_table.private_route_table.id
 }
 
@@ -75,13 +75,13 @@ resource "aws_lambda_function" "lambda" {
   source_code_hash = filebase64sha256("lambda.zip")
 
   vpc_config {
-    subnet_ids         = [aws_subnet.private_subnet.id]
+    subnet_ids         = [aws_subnet.private_subnet_new.id]
     security_group_ids = [aws_security_group.lambda_sg.id]
   }
 
   environment {
     variables = {
-      SUBNET_ID = aws_subnet.private_subnet.id
+      SUBNET_ID = aws_subnet.private_subnet_new.id
       NAME      = var.NAME
       EMAIL     = var.EMAIL
     }
@@ -97,7 +97,7 @@ resource "null_resource" "lambda_package_and_upload" {
 
 # Output the subnet ID for use in the Jenkins pipeline
 output "subnet_id" {
-  value = aws_subnet.private_subnet.id
+  value = aws_subnet.private_subnet_new.id
 }
 
 output "name" {
