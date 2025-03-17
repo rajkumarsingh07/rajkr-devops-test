@@ -65,8 +65,8 @@ resource "aws_security_group" "lambda_sg" {
 }
 
 # Create the Lambda function
-resource "aws_lambda_function" "lambda7" {
-  function_name = "devops-exam-lambda7"
+resource "aws_lambda_function" "lambda8" {
+  function_name = "devops-exam-lambda8"
   role          = data.aws_iam_role.lambda.arn
   handler       = "lambda_function.lambda_handler"
   runtime       = "python3.11"
@@ -81,7 +81,7 @@ resource "aws_lambda_function" "lambda7" {
 
   environment {
     variables = {
-      API_ENDPOINT = "https://6fhjjqbmad.execute-api.eu-west-1.amazonaws.com/candidate-email_serverless_lambda_stage/data"
+      API_ENDPOINT = "https://bc1yy8dzsg.execute-api.eu-west-1.amazonaws.com/v1/data"
       SUBNET_ID    = aws_subnet.private_subnet_new.id
       NAME         = var.NAME
       EMAIL        = var.EMAIL
