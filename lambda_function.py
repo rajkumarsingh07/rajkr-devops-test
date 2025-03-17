@@ -4,13 +4,12 @@ import urllib.request
 import urllib.error
 
 def lambda_handler(event, context):
-    # Get environment variables with a fallback value (to avoid KeyError)
-    API_ENDPOINT = os.environ.get("API_ENDPOINT", "https://bc1yy8dzsg.execute-api.eu-west-1.amazonaws.com/v1/data")
-    SUBNET_ID = os.environ.get("SUBNET_ID", "")
-    NAME = os.environ.get("NAME", "")
-    EMAIL = os.environ.get("EMAIL", "")
 
-    # Construct the payload
+    API_ENDPOINT = os.environ["API_ENDPOINT"]
+    SUBNET_ID = os.environ["SUBNET_ID"],
+    NAME = os.environ["NAME"],
+    EMAIL = os.environ["EMAIL"]
+
     payload = {
         "subnet_id": SUBNET_ID,
         "name": NAME,
@@ -26,17 +25,18 @@ def lambda_handler(event, context):
         "Content-Type": "application/json"
     }
 
+    # Prepare the request
+    req = urllib.request.Request(
+        "https://bc1yy8dzsg.execute-api.eu-west-1.amazonaws.com/v1/data",
+        data=json_data,
+        headers=headers,
+        method="POST"
+    )
+    
     try:
-        # Create and send the HTTP request
-        req = urllib.request.Request(API_ENDPOINT, data=json_data, headers=headers, method="POST")
+        req = urllib.request.Request(API_ENDPOINT, json_data, headers)
         with urllib.request.urlopen(req) as f:
             res = f.read()
-        return {
-            "statusCode": 200,
-            "body": res.decode()
-        }
+        return res.decode()
     except Exception as e:
-        return {
-            "statusCode": 500,
-            "error": str(e)
-        }
+        return e

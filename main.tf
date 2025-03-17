@@ -65,14 +65,14 @@ resource "aws_security_group" "lambda_sg" {
 }
 
 # Create the Lambda function
-resource "aws_lambda_function" "devops_exam_lambda_new" {
-  function_name = "devops-exam-lambda-new"
+resource "aws_lambda_function" "devops_exam_lambda_raj" {
+  function_name = "devops-exam-lambda-raj"
   role          = data.aws_iam_role.lambda.arn
   handler       = "lambda_function.lambda_handler"
   runtime       = "python3.8"
 
-  filename         = "lambda.zip"
-  source_code_hash = filebase64sha256("lambda.zip")
+  filename         = "lambda-raj.zip"
+  source_code_hash = filebase64sha256("lambda-raj.zip")
 
   vpc_config {
     subnet_ids         = [aws_subnet.private_subnet.id]
