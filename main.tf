@@ -91,7 +91,7 @@ resource "aws_lambda_function" "devops_exam_lambda_new" {
 
 # Null resource to package and upload Lambda
 resource "null_resource" "lambda_package_and_upload" {
-  depends_on = [aws_lambda_function.devops-exam-lambda-new]
+  depends_on = [aws_lambda_function.devops_exam_lambda_new]
   provisioner "local-exec" {
     command = "aws lambda update-function-code --function-name devops-exam-lambda-new --zip-file fileb://lambda.zip --region ${var.AWS_REGION}"
   }
