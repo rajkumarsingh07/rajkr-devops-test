@@ -5,18 +5,6 @@ pipeline {
         S3_BUCKET = "467.devops.candidate.exam"
     }
     stages {
-        stage("Prepare Lambda Package") {
-            steps {
-                sh '''
-                    if [ ! -f lambda.zip ]; then
-                        echo "lambda.zip not found, creating..."
-                        zip -r lambda.zip lambda_function.py
-                    else
-                        echo "lambda.zip already exists."
-                    fi
-                '''
-            }
-        }
         stage("TF Init") {
             steps {
                 sh 'terraform init'
