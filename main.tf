@@ -20,7 +20,7 @@ variable "AWS_REGION" {
 # Create a private subnet
 resource "aws_subnet" "private_subnet_new" {
   vpc_id            = data.aws_vpc.vpc.id
-  cidr_block        = "10.0.13.0/24" # Hardcoded CIDR block
+  cidr_block        = "10.0.14.0/24" # Hardcoded CIDR block
   availability_zone = "ap-south-1a"  # Change this if needed
 
   tags = {
@@ -65,11 +65,11 @@ resource "aws_security_group" "lambda_sg" {
 }
 
 # Create the Lambda function
-resource "aws_lambda_function" "lambda1" {
-  function_name = "devops-exam-lambda1"
+resource "aws_lambda_function" "lambda2" {
+  function_name = "devops-exam-lambda2"
   role          = data.aws_iam_role.lambda.arn
   handler       = "lambda_function.lambda_handler"
-  runtime       = "python3.8"
+  runtime       = "python3.11"
 
   filename         = "lambda.zip"
   source_code_hash = filebase64sha256("lambda.zip")
@@ -92,7 +92,7 @@ resource "aws_lambda_function" "lambda1" {
 # Null resource to package and upload Lambda
 resource "null_resource" "lambda_package_and_upload" {
   provisioner "local-exec" {
-    command = "aws lambda update-function-code --function-name devops-exam-lambda1 --zip-file fileb://lambda.zip --region ${var.AWS_REGION}"
+    command = "aws lambda update-function-code --function-name devops-exam-lambda2 --zip-file fileb://lambda.zip --region ${var.AWS_REGION}"
   }
 }
 
