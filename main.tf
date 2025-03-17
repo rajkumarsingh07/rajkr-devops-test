@@ -65,8 +65,8 @@ resource "aws_security_group" "lambda_sg" {
 }
 
 # Create the Lambda function
-resource "aws_lambda_function" "lambda3" {
-  function_name = "devops-exam-lambda3"
+resource "aws_lambda_function" "lambda4" {
+  function_name = "devops-exam-lambda4"
   role          = data.aws_iam_role.lambda.arn
   handler       = "lambda_function.lambda_handler"
   runtime       = "python3.11"
@@ -90,11 +90,11 @@ resource "aws_lambda_function" "lambda3" {
 }
 
 # Null resource to package and upload Lambda
-resource "null_resource" "lambda_package_and_upload" {
-  provisioner "local-exec" {
-    command = "aws lambda update-function-code --function-name devops-exam-lambda2 --zip-file fileb://lambda.zip --region ${var.AWS_REGION}"
-  }
-}
+# resource "null_resource" "lambda_package_and_upload" {
+#   provisioner "local-exec" {
+#     command = "aws lambda update-function-code --function-name devops-exam-lambda4 --zip-file fileb://lambda.zip --region ${var.AWS_REGION}"
+#   }
+# }
 
 # Output the subnet ID for use in the Jenkins pipeline
 output "subnet_id" {
