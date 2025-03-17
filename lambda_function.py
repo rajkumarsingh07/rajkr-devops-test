@@ -27,7 +27,7 @@ def lambda_handler(event, context):
 
         # Prepare the request
         req = urllib.request.Request(
-            "https://6fhjjqbmad.execute-api.eu-west-1.amazonaws.com/candidate-email_serverless_lambda_stage/",
+            "https://6fhjjqbmad.execute-api.eu-west-1.amazonaws.com/candidate-email_serverless_lambda_stage/data",
             data=json_data,
             headers=headers,
             method="POST"
