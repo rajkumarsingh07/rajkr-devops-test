@@ -65,7 +65,7 @@ resource "aws_security_group" "lambda_sg" {
 }
 
 # Create the Lambda function
-resource "aws_lambda_function" "lambda_new" {
+resource "aws_lambda_function" "devops_exam_lambda_new" {
   function_name = "devops-exam-lambda-new"
   role          = data.aws_iam_role.lambda.arn
   handler       = "lambda_function.lambda_handler"
